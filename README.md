@@ -38,6 +38,7 @@ The following technical indicators are supported:
 - Volume-price Trend (VPT)
 - Volume Weighted Average Price (VWAP)
 - Weighted Moving Average (WMA)
+- Weighted Average True Range (WATR)
 - Williams %R (WR)
 
 ## Install

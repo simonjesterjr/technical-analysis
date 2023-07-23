@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    technical-analysis (0.2.3)
+    technical-analysis (0.3.0)
 
 GEM
   remote: https://rubygems.org/
@@ -27,11 +27,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler (~> 1.16)
+  bundler (~> 2.3.26)
   rake (~> 12.3)
   rspec (~> 3.0)
   technical-analysis!
   yard (~> 0.9.20)
 
 BUNDLED WITH
-   1.17.1
+   2.3.26
