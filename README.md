@@ -179,3 +179,11 @@ This gem is also documented using [Yard](https://yardoc.org/). You can view the 
 
 ## Run Tests
 `rspec spec`
+
+## Gem management
+    $ gem build technical-analysis.gemspec
+    $ rake install
+    $ gem list technical-analysis
+    
+    # in the Gemfile
+    gem 'technical-analysis', '0.3.0', path: "/Users/johnkoisch/Documents/com/sawtooth-trading/technical-analysis/pkg/"
