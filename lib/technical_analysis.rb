@@ -2,6 +2,7 @@
 require 'technical_analysis/helpers/array_helper'
 require 'technical_analysis/helpers/stock_calculation'
 require 'technical_analysis/helpers/validation'
+require 'technical_analysis/helpers/signal_helper'
 
 # Indicators
 require 'technical_analysis/indicators/indicator'

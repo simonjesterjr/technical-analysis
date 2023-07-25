@@ -52,7 +52,7 @@ module TechnicalAnalysis
     # @param price_key [Symbol] The hash key for the price data. Default :value
     #
     # @return [Array<BbValue>] An array of BbValue instances
-    def self.calculate(data, period: 20, standard_deviations: 2, price_key: :value)
+    def self.calculate(data, period: 20, standard_deviations: 2, price_key: :value, &block)
       period = period.to_i
       standard_deviations = standard_deviations.to_f
       price_key = price_key.to_sym
@@ -65,7 +65,7 @@ module TechnicalAnalysis
       output = []
       period_values = []
 
-      data.each do |v|
+      data.each_with_index do |v, i|
         period_values << v[price_key]
 
         if period_values.size == period
@@ -74,13 +74,27 @@ module TechnicalAnalysis
           ub = mb + standard_deviations * sd
           lb = mb - standard_deviations * sd
 
-          output << BbValue.new(
+          current = BbValue.new(
             date_time: v[:date_time],
             lower_band: lb,
             middle_band: mb,
             upper_band: ub
           )
 
+          if output.size > 0
+            last = data[i-1]
+            direction = nil
+            if v[:close] > current.upper_band  && last[:close] < output.last.upper_band
+              direction = :long
+            elsif v[:close] < current.lower_band  && last[:close] > output.last.lower_band
+              direction = :short
+            end
+
+            if block_given?
+              yield SignalHelper.generate( SignalHelper::BOLLINGER_BREAKOUT, direction, v[:id] ) if direction
+            end
+          end
+          output << current
           period_values.shift
         end
       end

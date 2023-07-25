@@ -187,3 +187,6 @@ This gem is also documented using [Yard](https://yardoc.org/). You can view the 
     
     # in the Gemfile
     gem 'technical-analysis', '0.3.0', path: "/Users/johnkoisch/Documents/com/sawtooth-trading/technical-analysis/pkg/"
+
+    # in other projects you may need
+    gem install --local /Users/johnkoisch/Documents/com/sawtooth-trading/technical-analysis/pkg/technical-analysis-0.3.1.gem

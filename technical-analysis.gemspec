@@ -1,7 +1,7 @@
 Gem::Specification.new do |spec|
   spec.name          = "technical-analysis"
-  spec.version       = "0.3.0"
-  spec.authors       = ["Intrinio and Sawtooth Trading"]
+  spec.version       = "0.3.2"
+  spec.authors       = ["Sawtooth Trading"]
   spec.email         = ["admin@intrinio.com"]
   spec.description   = %q{A Ruby library for performing technical analysis on stock prices and other data sets.}
   spec.summary       = %q{A Ruby library for performing technical analysis on stock prices and other data sets.}

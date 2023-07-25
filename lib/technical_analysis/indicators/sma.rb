@@ -51,7 +51,7 @@ module TechnicalAnalysis
     # @param date_time_key [Symbol] The hash key for the date time data. Default :date_time
     #
     # @return [Array<SmaValue>] An array of SmaValue instances
-    def self.calculate(data, period: 30, price_key: :value, date_time_key: :date_time)
+    def self.calculate(data, period: 30, price_key: :value, date_time_key: :date_time, &block)
       period = period.to_i
       price_key = price_key.to_sym
       date_time_key = date_time_key.to_sym
@@ -64,10 +64,26 @@ module TechnicalAnalysis
       output = []
       period_values = []
 
-      data.each do |v|
+      data.each_with_index do |v, i|
         period_values << v[price_key]
         if period_values.size == period
-          output << SmaValue.new(date_time: v[date_time_key], sma: ArrayHelper.average(period_values))
+          current = SmaValue.new(date_time: v[date_time_key], sma: ArrayHelper.average(period_values))
+
+          if output.size > 0
+            last = data[i-1]
+            direction = nil
+            if v[:close] > current.sma  && last[:close] < output.last.sma
+              direction = :long
+            elsif v[:close] < current.sma  && last[:close] > output.last.sma
+              direction = :short
+            end
+
+            if block_given?
+              yield SignalHelper.generate( SignalHelper::MA_PRICE_CROSSOVER, direction, v[:id], notes: "period: #{period}" ) if direction
+            end
+          end
+
+          output << current
           period_values.shift
         end
       end
@@ -80,7 +96,7 @@ module TechnicalAnalysis
   # The value class to be returned by calculations
   class SmaValue
 
-    # @return [String] the date_time of the obversation as it was provided
+    # @return [String] the date_time of the observation as it was provided
     attr_accessor :date_time
 
     # @return [Float] the sma calculation value
