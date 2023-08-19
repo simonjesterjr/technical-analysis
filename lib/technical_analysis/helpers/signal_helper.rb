@@ -4,6 +4,7 @@ class SignalHelper
   MA_CROSSOVER = :ma_crossover
   MA_PRICE_CROSSOVER = :ma_price_crossover
   MA_BREAKOUT = :ma_breakout
+  CHANNEL_BREAKOUT = :channel_breakout
 
   def self.generate( signal, direction, id, notes: nil )
     {
